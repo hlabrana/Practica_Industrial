@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Deudor vs Acreedor</title>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style type="text/css">
+${demo.css}
+        </style>
+        <script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Deudor v/s Acreedor con Total General mayor a $5.000.000'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+});
+        </script>
+    </head>
+    <body>
+<script src="API/js/highcharts.js"></script>
+<script src="API/js/modules/data.js"></script>
+<script src="API/js/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<table id="datatable">
+    <thead>
+        <tr>
+            <th>Servicio</th>
+            <th>Deudor</th>
+            <th>Acreedor</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <?php
+        //Se realiza la consulta SQL
+        $query = "SELECT Sociedad,SUM(importe) as importe FROM OUTPUT WHERE tramo!='Vigente' GROUP BY Sociedad ORDER BY importe DESC";
+        $result = mysqli_query($conexion,$query);
+        //Comprobar posibles errores
+        if(mysqli_error($conexion)){
+        echo mysqli_error($conexion)."<br>";
+        }
+
+        while()
+
+        ?>
+    </tbody>
+</table>
+    </body>
+</html>
